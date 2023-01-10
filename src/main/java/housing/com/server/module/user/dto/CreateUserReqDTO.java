@@ -3,14 +3,16 @@ package housing.com.server.module.user.dto;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 @Getter
+@AllArgsConstructor
 public class CreateUserReqDTO {
     @Email(message = "Badly formed email")
     @NotBlank(message = "Email is a must")
     String email;
-    @NotBlank(message = "Password is a must")
+
     String password;
     @Size(max = 50, message = "First Name is too long")
     @NotBlank(message = "First Name is a must")
