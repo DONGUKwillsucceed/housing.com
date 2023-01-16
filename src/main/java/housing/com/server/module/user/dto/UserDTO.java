@@ -1,7 +1,7 @@
 package housing.com.server.module.user.dto;
 
 import housing.com.server.module.user.domain.User;
-import housing.com.server.module.user.domain.UserRank;
+import housing.com.server.module.user.domain.type.UserRank;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

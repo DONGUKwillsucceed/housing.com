@@ -1,6 +1,8 @@
 package housing.com.server.module.user.domain;
 
 
+import housing.com.server.module.user.domain.type.UserRank;
+import housing.com.server.module.user.domain.type.UserStatus;
 import housing.com.server.module.user.dto.CreateUserReqDTO;
 import jakarta.persistence.*;
 import lombok.Getter;

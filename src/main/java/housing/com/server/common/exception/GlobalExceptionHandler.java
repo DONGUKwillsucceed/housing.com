@@ -31,6 +31,14 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
     }
 
+    @ExceptionHandler(SignInException.class)
+    public ResponseEntity<ErrorResponse> handleSignInException(SignInException e){
+        log.info("Sign in Failed", e);
+        String message = e.getMessage();
+        ErrorResponse response = new ErrorResponse(message);
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(response);
+    }
+
     @ExceptionHandler(MethodArgumentTypeMismatchException.class)
     public ResponseEntity<ErrorResponse> handleTypeMismatchException(MethodArgumentTypeMismatchException e){
         log.warn("Type is mismatched", e);
