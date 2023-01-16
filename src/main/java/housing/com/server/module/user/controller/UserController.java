@@ -1,6 +1,7 @@
 package housing.com.server.module.user.controller;
 
 import housing.com.server.module.user.dto.CreateUserReqDTO;
+import housing.com.server.module.user.dto.UserDTO;
 import housing.com.server.module.user.service.UserService;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
@@ -17,12 +18,9 @@ public class UserController {
         this.userService = userService;
     }
 
-    @GetMapping()
-    @ResponseBody
-    public String findMany(){
-        log.info("many");
-        String many = "many";
-        return many;
+    @GetMapping("{userId}")
+    public UserDTO findUnique(@PathVariable Long userId){
+        return userService.findUnique(userId);
     }
     @PostMapping("create")
     public void create(@Valid @RequestBody() CreateUserReqDTO dto){

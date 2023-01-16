@@ -10,7 +10,7 @@ import java.util.Date;
 
 @Getter
 @Entity
-@Table(name = "User", schema = "Housing", catalog = "")
+@Table(name = "User", schema = "Housing")
 @NoArgsConstructor
 public class User {
     @Id
@@ -21,26 +21,26 @@ public class User {
     @Column(name = "email", nullable = false)
     private String email;
     @Basic
-    @Column(name = "hashPassword")
+    @Column(name = "hash_password")
     private String hashPassword;
     @Basic
-    @Column(name = "firstName", nullable = false)
+    @Column(name = "first_name", nullable = false)
     private String firstName;
     @Basic
-    @Column(name = "lastName", nullable = false)
+    @Column(name = "last_name", nullable = false)
     private String lastName;
     @Basic
-    @Column(name = "createdAt", nullable = false)
+    @Column(name = "created_at", nullable = false)
     private Timestamp createdAt;
     @Basic
-    @Column(name = "modifiedAt", nullable = false)
+    @Column(name = "modified_at", nullable = false)
     private Timestamp modifiedAt;
     @Basic
-    @Column(name = "userStatus", nullable = false)
+    @Column(name = "user_status", nullable = false)
     private UserStatus status;
 
     @Basic
-    @Column(name = "userRank", nullable = false)
+    @Column(name = "user_rank", nullable = false)
     private UserRank rank;
 
     public User(CreateUserReqDTO dto){
@@ -49,7 +49,7 @@ public class User {
         this.lastName = dto.getLastName();
         this.hashPassword = dto.getPassword();
         this.status = UserStatus.Activate;
-        this.rank = UserRank.Admin;
+        this.rank = UserRank.Normal;
         this.createdAt = new Timestamp(new Date().getTime());
         this.modifiedAt = new Timestamp(new Date().getTime());
     }
