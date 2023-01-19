@@ -33,9 +33,7 @@ public class AuthService {
             result = signInWithHousing(dto, user);
 
         if(result){
-            log.info("work?1");
             String accessToken = jwtProvider.createToken(user.getId());
-            log.info(accessToken);
             signInResponseDTO = new SignInResponseDTO(accessToken, user.getId());
         }
 
@@ -45,9 +43,7 @@ public class AuthService {
     public boolean signInWithHousing(SignInRequestDTO dto, User user){
         boolean resultForPassword = passwordEncoder.matches(dto.getPassword(), user.getHashPassword());
         boolean resultForEmail = Objects.equals(dto.getEmail(), user.getEmail());
-        log.info(String.valueOf(resultForEmail));
-        log.info(String.valueOf(resultForPassword));
-        log.info(String.valueOf(resultForEmail && resultForPassword));
+
         return resultForEmail && resultForPassword;
     }
 
