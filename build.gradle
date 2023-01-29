@@ -14,6 +14,7 @@ repositories {
 
 dependencies {
     implementation 'org.projectlombok:lombok'
+    implementation 'org.jetbrains:annotations:23.0.0'
     annotationProcessor 'org.projectlombok:lombok'
 
     implementation 'org.springframework.boot:spring-boot-starter-web'
