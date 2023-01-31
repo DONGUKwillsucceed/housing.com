@@ -65,8 +65,8 @@ public class ApartmentJunsaeRentTransactionGenerator {
     }
     private ApartmentJunsaeRentTransaction mapTransaction(Element eElement){
         return ApartmentJunsaeRentTransaction.builder()
-                .deposit(Integer.parseInt(this.getTagValue("거래금액", eElement)))
-                .rent(Integer.parseInt((this.getTagValue("월세", eElement))))
+                .deposit(Integer.parseInt(this.getTagValue("보증금액", eElement)))
+                .rent(Integer.parseInt((this.getTagValue("월세금액", eElement))))
                 .apartmentName(this.getTagValue("아파트", eElement))
                 .apartmentBuildYear(Integer.parseInt(this.getTagValue("건축년도", eElement)))
                 .dealYear(Integer.parseInt(this.getTagValue("년", eElement)))
@@ -77,6 +77,7 @@ public class ApartmentJunsaeRentTransactionGenerator {
                 .areaCode(Integer.parseInt(this.getTagValue("지역코드",eElement)))
                 .dong(this.getTagValue("법정동", eElement))
                 .jibun(this.getTagValue("지번", eElement))
+                .termOfContract(this.getTagValue("계약기간", eElement))
                 .type(PropertyType.apartment)
                 .build();
     }

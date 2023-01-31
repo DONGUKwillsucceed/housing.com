@@ -42,7 +42,7 @@ public class ApartmentSaleTransaction {
     private int floor;
     @Basic
     @Column(name="area_Code", nullable = false)
-    private int areaCode;
+    private double areaCode;
     @Basic
     @Column(name="dong", nullable = false)
     private String dong;
@@ -53,6 +53,9 @@ public class ApartmentSaleTransaction {
     @Basic
     @Column(name = "type", nullable = false)
     private PropertyType type;
+    @ManyToOne(targetEntity = AreaCode.class, fetch = FetchType.EAGER)
+    @JoinColumn(name = "area_Code")
+    public AreaCode areacode;
 
     @Builder
     public ApartmentSaleTransaction(String apartmentName, int apartmentBuildYear, int amount, int dealYear, int dealMonth, int dealDay, double space, int floor, int areaCode, String dong, String jibun, PropertyType type) {

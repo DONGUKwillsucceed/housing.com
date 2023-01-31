@@ -46,20 +46,24 @@ public class ApartmentJunsaeRentTransaction {
     private int floor;
     @Basic
     @Column(name="area_Code", nullable = false)
-    private int areaCode;
+    private double areaCode;
     @Basic
     @Column(name="dong", nullable = false)
     private String dong;
     @Basic
     @Column(name = "jibun", nullable = false)
     private String jibun;
-
+    @Basic
+    @Column(name = "term_of_contract", nullable = false)
+    private String termOfContract;
     @Basic
     @Column(name = "type", nullable = false)
     private PropertyType type;
-
+    @ManyToOne(targetEntity = AreaCode.class, fetch = FetchType.EAGER)
+    @JoinColumn(name = "area_Code")
+    public AreaCode areacode;
     @Builder
-    public ApartmentJunsaeRentTransaction(String apartmentName, int apartmentBuildYear, int deposit, int rent,int dealYear, int dealMonth, int dealDay, double space, int floor, int areaCode, String dong, String jibun, PropertyType type) {
+    public ApartmentJunsaeRentTransaction(String apartmentName, int apartmentBuildYear, int deposit, int rent,int dealYear, int dealMonth, int dealDay, double space, int floor, int areaCode, String dong, String jibun, String termOfContract,PropertyType type) {
         this.apartmentName = apartmentName;
         this.apartmentBuildYear = apartmentBuildYear;
         this.deposit = deposit;
@@ -72,6 +76,7 @@ public class ApartmentJunsaeRentTransaction {
         this.areaCode = areaCode;
         this.dong = dong;
         this.jibun = jibun;
+        this.termOfContract = termOfContract;
         this.type = type;
     }
 
