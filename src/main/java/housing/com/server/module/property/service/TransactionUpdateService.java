@@ -1,7 +1,7 @@
 package housing.com.server.module.property.service;
 
 import housing.com.server.module.property.domain.ApartmentSaleTransaction;
-import housing.com.server.module.property.domain.ApartmentTransactionGenerator;
+import housing.com.server.module.property.domain.ApartmentSaleTransactionGenerator;
 import housing.com.server.module.property.repository.ApartmentSaleTransactionRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.EnableScheduling;
@@ -17,16 +17,16 @@ import java.util.ArrayList;
 @EnableScheduling
 public class TransactionUpdateService {
     private final ApartmentSaleTransactionRepository apartmentSaleTransactionRepository;
-    private final ApartmentTransactionGenerator apartmentTransactionGenerator;
-    public TransactionUpdateService(ApartmentSaleTransactionRepository apartmentSaleTransactionRepository, ApartmentTransactionGenerator apartmentTransactionGenerator){
+    private final ApartmentSaleTransactionGenerator apartmentSaleTransactionGenerator;
+    public TransactionUpdateService(ApartmentSaleTransactionRepository apartmentSaleTransactionRepository, ApartmentSaleTransactionGenerator apartmentSaleTransactionGenerator){
         this.apartmentSaleTransactionRepository = apartmentSaleTransactionRepository;
-        this.apartmentTransactionGenerator = apartmentTransactionGenerator;
+        this.apartmentSaleTransactionGenerator = apartmentSaleTransactionGenerator;
     }
 
     @Scheduled(cron = "0/30 * * * * ?")
     void updateApartmentSale() throws IOException, ParserConfigurationException, SAXException {
         log.info("[cron start]!");
-        ArrayList<ApartmentSaleTransaction> transactions = apartmentTransactionGenerator.generate();
+        ArrayList<ApartmentSaleTransaction> transactions = apartmentSaleTransactionGenerator.generate();
         log.info("[Is Tranactions generated??] " + transactions.size());
         for(ApartmentSaleTransaction transaction : transactions){
             ApartmentSaleTransaction result = apartmentSaleTransactionRepository.findApartmentSaleTransactionByApartmentName(transaction.getApartmentName());
