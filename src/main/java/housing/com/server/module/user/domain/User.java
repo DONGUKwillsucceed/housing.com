@@ -3,17 +3,17 @@ package housing.com.server.module.user.domain;
 
 import housing.com.server.module.user.domain.type.UserRank;
 import housing.com.server.module.user.domain.type.UserStatus;
-import housing.com.server.module.user.dto.CreateUserReqDTO;
 import jakarta.persistence.*;
+import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import java.sql.Timestamp;
-import java.util.Date;
 
 @Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
 @Table(name = "User", schema = "Housing")
-@NoArgsConstructor
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -38,31 +38,24 @@ public class User {
     @Column(name = "modified_at", nullable = false)
     private Timestamp modifiedAt;
     @Basic
+    //@Enumerated(EnumType.STRING)
     @Column(name = "user_status", nullable = false)
     private UserStatus status;
-
     @Basic
+    //@Enumerated(EnumType.STRING)
     @Column(name = "user_rank", nullable = false)
     private UserRank rank;
 
-    public User(CreateUserReqDTO dto){
-        this.email = dto.getEmail();
-        this.firstName = dto.getFirstName();
-        this.lastName = dto.getLastName();
-        this.hashPassword = dto.getPassword();
-        this.status = UserStatus.Activate;
-        this.rank = UserRank.Normal;
-        this.createdAt = new Timestamp(new Date().getTime());
-        this.modifiedAt = new Timestamp(new Date().getTime());
-    }
-
-    public void updateName(String firstName, String lastName){
+    @Builder
+    public User(long id, String email, String hashPassword, String firstName, String lastName, Timestamp modifiedAt, Timestamp createdAt, UserStatus status, UserRank rank){
+        this.id = id;
+        this.email = email;
+        this.hashPassword = hashPassword;
         this.firstName = firstName;
         this.lastName = lastName;
-    }
-    public void updateStatus(UserStatus status){
+        this.modifiedAt = modifiedAt;
+        this.createdAt = createdAt;
         this.status = status;
+        this.rank = rank;
     }
-
-    public void updateRank(UserRank rank){this.rank = rank;}
 }
