@@ -1,7 +1,7 @@
 package housing.com.server.module.property.service;
 
 import housing.com.server.module.property.domain.ApartmentSaleTransaction;
-import housing.com.server.module.property.domain.ApartmentSaleTransactionGenerator;
+import housing.com.server.module.property.domain.generator.ApartmentSaleTransactionGenerator;
 import housing.com.server.module.property.repository.ApartmentSaleTransactionRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.EnableScheduling;
