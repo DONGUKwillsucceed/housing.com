@@ -2,13 +2,15 @@ package housing.com.server.module.property.domain;
 
 import housing.com.server.module.property.domain.type.PropertyType;
 import jakarta.persistence.*;
+import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Getter
 @Entity
 @Table(name="Apartment_Sale_Transaction", schema = "Housing")
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class ApartmentSaleTransaction {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -52,7 +54,7 @@ public class ApartmentSaleTransaction {
     @Column(name = "type", nullable = false)
     private PropertyType type;
 
-
+    @Builder
     public ApartmentSaleTransaction(String apartmentName, int apartmentBuildYear, int amount, int dealYear, int dealMonth, int dealDay, double space, int floor, int areaCode, String dong, String jibun, PropertyType type) {
         this.apartmentName = apartmentName;
         this.apartmentBuildYear = apartmentBuildYear;

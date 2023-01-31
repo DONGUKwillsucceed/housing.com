@@ -65,19 +65,20 @@ public class ApartmentTransactionGenerator {
         return transactions;
     }
     private ApartmentSaleTransaction mapTransaction(Element eElement){
-        int amount = Integer.parseInt(this.getTagValue("거래금액", eElement));
-        String apartmentName = this.getTagValue("아파트", eElement);
-        int apartmentBuildYear = Integer.parseInt(this.getTagValue("건축년도", eElement));
-        int dealYear = Integer.parseInt(this.getTagValue("년", eElement));
-        int dealMonth = Integer.parseInt(this.getTagValue("월", eElement));
-        int dealDay = Integer.parseInt(this.getTagValue("일", eElement));
-        double space = Double.parseDouble(this.getTagValue("전용면적", eElement));
-        int floor = Integer.parseInt(this.getTagValue("층", eElement));
-        int areaCode = Integer.parseInt(this.getTagValue("지역코드",eElement));
-        String dong = this.getTagValue("법정동", eElement);
-        String jibun = this.getTagValue("지번", eElement);
-        PropertyType type = PropertyType.apartment;
-        return new ApartmentSaleTransaction(apartmentName, apartmentBuildYear, amount, dealYear, dealMonth,dealDay, space, floor, areaCode, dong, jibun, type);
+        return ApartmentSaleTransaction.builder()
+                .amount(Integer.parseInt(this.getTagValue("거래금액", eElement)))
+                .apartmentName(this.getTagValue("아파트", eElement))
+                .apartmentBuildYear(Integer.parseInt(this.getTagValue("건축년도", eElement)))
+                .dealYear(Integer.parseInt(this.getTagValue("년", eElement)))
+                .dealMonth(Integer.parseInt(this.getTagValue("월", eElement)))
+                .dealDay(Integer.parseInt(this.getTagValue("일", eElement)))
+                .space(Double.parseDouble(this.getTagValue("전용면적", eElement)))
+                .floor(Integer.parseInt(this.getTagValue("층", eElement)))
+                .areaCode(Integer.parseInt(this.getTagValue("지역코드",eElement)))
+                .dong(this.getTagValue("법정동", eElement))
+                .jibun(this.getTagValue("지번", eElement))
+                .type(PropertyType.apartment)
+                .build();
     }
     private String getTagValue(String tagName, Element element) {
         NodeList nodeList = element.getElementsByTagName(tagName).item(0).getChildNodes();
