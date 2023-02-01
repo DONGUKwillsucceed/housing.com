@@ -1,4 +1,4 @@
-package housing.com.server.module.property.domain;
+package housing.com.server.module.property.domain.entity;
 
 import housing.com.server.module.property.domain.type.PropertyType;
 import jakarta.persistence.*;
@@ -9,9 +9,9 @@ import lombok.NoArgsConstructor;
 
 @Getter
 @Entity
-@Table(name="Apartment_Junsae_Rent_Transaction", schema = "Housing")
+@Table(name="Apartment_Sale_Transaction", schema = "Housing")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class ApartmentJunsaeRentTransaction {
+public class ApartmentSaleTransaction {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
@@ -23,12 +23,8 @@ public class ApartmentJunsaeRentTransaction {
     @Column(name = "apartment_build_year", nullable = false)
     private int apartmentBuildYear;
     @Basic
-    @Column(name = "deposit", nullable = false)
-    private int deposit;
-
-    @Basic
-    @Column(name = "rent", nullable = false)
-    private int rent;
+    @Column(name = "amount", nullable = false)
+    private int amount;
     @Basic
     @Column(name = "deal_year", nullable = false)
     private int dealYear;
@@ -45,39 +41,31 @@ public class ApartmentJunsaeRentTransaction {
     @Column(name="floor", nullable = false)
     private int floor;
     @Basic
-    @Column(name="area_Code", nullable = false)
-    private double areaCode;
-    @Basic
     @Column(name="dong", nullable = false)
     private String dong;
     @Basic
     @Column(name = "jibun", nullable = false)
     private String jibun;
     @Basic
-    @Column(name = "term_of_contract", nullable = false)
-    private String termOfContract;
-    @Basic
     @Column(name = "type", nullable = false)
     private PropertyType type;
     @ManyToOne(targetEntity = AreaCode.class, fetch = FetchType.EAGER)
     @JoinColumn(name = "area_Code")
     public AreaCode areacode;
+
     @Builder
-    public ApartmentJunsaeRentTransaction(String apartmentName, int apartmentBuildYear, int deposit, int rent,int dealYear, int dealMonth, int dealDay, double space, int floor, int areaCode, String dong, String jibun, String termOfContract,PropertyType type) {
+    public ApartmentSaleTransaction(String apartmentName, int apartmentBuildYear, int amount, int dealYear, int dealMonth, int dealDay, double space, int floor, AreaCode areaCode, String dong, String jibun, PropertyType type) {
         this.apartmentName = apartmentName;
         this.apartmentBuildYear = apartmentBuildYear;
-        this.deposit = deposit;
-        this.rent = rent;
+        this.amount = amount;
         this.dealYear = dealYear;
         this.dealMonth = dealMonth;
         this.dealDay = dealDay;
         this.space = space;
         this.floor = floor;
-        this.areaCode = areaCode;
+        this.areacode = areaCode;
         this.dong = dong;
         this.jibun = jibun;
-        this.termOfContract = termOfContract;
         this.type = type;
     }
-
 }

@@ -1,16 +1,13 @@
-package housing.com.server.module.property.service;
+package housing.com.server.module.property.application;
 
-import housing.com.server.module.property.domain.ApartmentSaleTransaction;
-import housing.com.server.module.property.domain.generator.ApartmentSaleTransactionGenerator;
-import housing.com.server.module.property.repository.ApartmentSaleTransactionRepository;
+import housing.com.server.module.property.domain.entity.ApartmentSaleTransaction;
+import housing.com.server.module.updater.application.ApartmentSaleTransactionGenerator;
+import housing.com.server.module.property.infra.ApartmentSaleTransactionRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
-import org.xml.sax.SAXException;
 
-import javax.xml.parsers.ParserConfigurationException;
-import java.io.IOException;
 import java.util.ArrayList;
 
 @Service @Slf4j
@@ -24,14 +21,15 @@ public class TransactionUpdateService {
     }
 
     @Scheduled(cron = "0/30 * * * * ?")
-    void updateApartmentSale() throws IOException, ParserConfigurationException, SAXException {
+    void updateApartmentSale() {
         log.info("[cron start]!");
         ArrayList<ApartmentSaleTransaction> transactions = apartmentSaleTransactionGenerator.generate();
         log.info("[Is Tranactions generated??] " + transactions.size());
         for(ApartmentSaleTransaction transaction : transactions){
             ApartmentSaleTransaction result = apartmentSaleTransactionRepository.findApartmentSaleTransactionByApartmentName(transaction.getApartmentName());
-            if(result == null)
+            if(result != null)
                 continue;
+
 
             apartmentSaleTransactionRepository.save(transaction);
         }

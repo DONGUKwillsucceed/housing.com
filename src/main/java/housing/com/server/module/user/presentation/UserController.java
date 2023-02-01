@@ -1,8 +1,8 @@
-package housing.com.server.module.user.controller;
+package housing.com.server.module.user.presentation;
 
-import housing.com.server.module.user.dto.CreateUserReqDTO;
-import housing.com.server.module.user.dto.UserDTO;
-import housing.com.server.module.user.service.UserService;
+import housing.com.server.module.user.presentation.dto.CreateUserReqDTO;
+import housing.com.server.module.user.presentation.dto.UserDTO;
+import housing.com.server.module.user.application.UserService;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

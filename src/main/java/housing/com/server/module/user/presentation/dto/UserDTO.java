@@ -1,6 +1,6 @@
-package housing.com.server.module.user.dto;
+package housing.com.server.module.user.presentation.dto;
 
-import housing.com.server.module.user.domain.User;
+import housing.com.server.module.user.domain.entity.User;
 import housing.com.server.module.user.domain.type.UserRank;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

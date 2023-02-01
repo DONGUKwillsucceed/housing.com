@@ -1,16 +1,13 @@
 package housing.com.server.user;
 
-import housing.com.server.module.user.domain.User;
+import housing.com.server.module.user.domain.entity.User;
 import housing.com.server.module.user.domain.type.UserRank;
 import housing.com.server.module.user.domain.type.UserStatus;
-import housing.com.server.module.user.dto.CreateUserReqDTO;
-import housing.com.server.module.user.dto.UserDTO;
-import housing.com.server.module.user.repository.UserRepository;
-import housing.com.server.module.user.service.UserService;
-import org.junit.jupiter.api.DisplayName;
+import housing.com.server.module.user.presentation.dto.CreateUserReqDTO;
+import housing.com.server.module.user.infra.UserRepository;
+import housing.com.server.module.user.application.UserService;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
 
 import java.sql.Timestamp;
 import java.util.Date;

@@ -15,8 +15,19 @@ public class XMLParser {
     public XMLParser() {
         this.dbFactory = DocumentBuilderFactory.newInstance();
     }
-    public Document parse(String url) throws ParserConfigurationException, IOException, SAXException {
-        DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-        return dBuilder.parse(url);
+    public Document parse(String url) {
+        Document xml = null;
+        try {
+            DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+            xml = dBuilder.parse(url);
+            xml.getDocumentElement().normalize();
+        } catch (ParserConfigurationException e){
+            e.printStackTrace();
+        } catch (IOException e){
+            e.printStackTrace();
+        } catch (SAXException e){
+            e.printStackTrace();
+        }
+        return xml;
     }
 }

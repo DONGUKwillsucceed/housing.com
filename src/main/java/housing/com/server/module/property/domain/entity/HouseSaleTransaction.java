@@ -1,5 +1,6 @@
-package housing.com.server.module.property.domain;
+package housing.com.server.module.property.domain.entity;
 
+import housing.com.server.module.property.domain.entity.AreaCode;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -40,9 +41,6 @@ public class HouseSaleTransaction {
     @Column(name = "house_type")
     private String houseType;
     @Basic
-    @Column(name = "area_code")
-    private double areaCode;
-    @Basic
     @Column(name = "dong")
     private String dong;
     @Basic
@@ -52,10 +50,10 @@ public class HouseSaleTransaction {
     @JoinColumn(name = "area_Code")
     public AreaCode areacode;
     @Builder
-    public HouseSaleTransaction(int houseBuildYear, int dealDay, int dealMonth, int dealYear, int amount, int totalSpace, int landArea, String houseType, int areaCode, String dong, String jibun){
+    public HouseSaleTransaction(int houseBuildYear, int dealDay, int dealMonth, int dealYear, int amount, int totalSpace, int landArea, String houseType, AreaCode areaCode, String dong, String jibun){
         this.amount = amount;
         this.dealDay = dealDay;
-        this.areaCode = areaCode;
+        this.areacode = areaCode;
         this.houseBuildYear = houseBuildYear;
         this.dealMonth = dealMonth;
         this.dealYear = dealYear;

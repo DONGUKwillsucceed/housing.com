@@ -1,10 +1,10 @@
-package housing.com.server.module.user.controller;
+package housing.com.server.module.user.presentation;
 
 import housing.com.server.common.exception.SignInException;
 import housing.com.server.module.user.domain.type.SignInMethod;
-import housing.com.server.module.user.dto.SignInRequestDTO;
-import housing.com.server.module.user.dto.SignInResponseDTO;
-import housing.com.server.module.user.service.AuthService;
+import housing.com.server.module.user.presentation.dto.SignInRequestDTO;
+import housing.com.server.module.user.presentation.dto.SignInResponseDTO;
+import housing.com.server.module.user.application.AuthService;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,11 +1,11 @@
-package housing.com.server.module.user.service;
+package housing.com.server.module.user.application;
 
 import housing.com.server.common.service.JWTProvider;
 import housing.com.server.module.user.domain.type.SignInMethod;
-import housing.com.server.module.user.dto.SignInRequestDTO;
-import housing.com.server.module.user.domain.User;
-import housing.com.server.module.user.dto.SignInResponseDTO;
-import housing.com.server.module.user.repository.UserRepository;
+import housing.com.server.module.user.presentation.dto.SignInRequestDTO;
+import housing.com.server.module.user.domain.entity.User;
+import housing.com.server.module.user.presentation.dto.SignInResponseDTO;
+import housing.com.server.module.user.infra.UserRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;

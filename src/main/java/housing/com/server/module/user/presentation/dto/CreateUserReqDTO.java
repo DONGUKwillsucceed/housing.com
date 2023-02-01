@@ -1,4 +1,4 @@
-package housing.com.server.module.user.dto;
+package housing.com.server.module.user.presentation.dto;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;

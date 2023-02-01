@@ -1,4 +1,4 @@
-package housing.com.server.module.user.domain;
+package housing.com.server.module.user.domain.entity;
 
 
 import housing.com.server.module.user.domain.type.UserRank;

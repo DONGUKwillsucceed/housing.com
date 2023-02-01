@@ -1,6 +1,6 @@
-package housing.com.server.module.property.repository;
+package housing.com.server.module.updater.infra;
 
-import housing.com.server.module.property.domain.ApartmentSaleTransaction;
+import housing.com.server.module.property.domain.entity.ApartmentSaleTransaction;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 

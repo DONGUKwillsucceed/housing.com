@@ -1,4 +1,4 @@
-package housing.com.server.module.user.dto;
+package housing.com.server.module.user.presentation.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -8,7 +8,7 @@ import lombok.Setter;
 @Getter @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class SignInResponseDTO {
-    String accessToken;
-    Long userId;
+public class SignInRequestDTO {
+    String email;
+    String password;
 }
