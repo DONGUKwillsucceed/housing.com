@@ -34,17 +34,17 @@ public class ApartmentSaleTransactionGenerator {
         this.areaCodeRepository = areaCodeRepository;
     }
 
-    public ArrayList<ApartmentSaleTransaction> generate(){
+    public void update(){
         // 모든 areaCode 배열을 가져온다.
         // for 문을 돌려서 해당 위치를 가져온다.
         // 날짜에 대한 for 문을 돌린다.
         getCurrentDate();
-        String url = getUrl("42150", "202211");
+        String url = getUrl("41720", "202211");
         log.info("[URL] " + url);
         Document xml = xmlParser.parse(url);
         log.info("Root : " + xml.getDocumentElement().getNodeName());
         NodeList nList = xml.getElementsByTagName("item");
-        return getTransaction(nList);
+        persistTransaction(nList);
     }
     @Contract("_, _ -> new")
     private @NotNull String getUrl(String areaCode, String date){
@@ -53,7 +53,7 @@ public class ApartmentSaleTransactionGenerator {
         urlBuilder.append("&").append(URLEncoder.encode("DEAL_YMD", StandardCharsets.UTF_8)).append("=").append(URLEncoder.encode(date, StandardCharsets.UTF_8));
         return urlBuilder.toString();
     }
-    private ArrayList<ApartmentSaleTransaction> getTransaction(NodeList nList){
+    private void persistTransaction(NodeList nList){
         log.info(String.valueOf(nList.getLength()));
         ArrayList<ApartmentSaleTransaction> transactions = new ArrayList<>();
         for(int temp = 0; temp < nList.getLength(); temp++){
@@ -66,10 +66,11 @@ public class ApartmentSaleTransactionGenerator {
             }
 
         }
-        return transactions;
     }
     private ApartmentSaleTransaction mapTransaction(Element eElement){
-        AreaCode areaCode = areaCodeRepository.findAreaCodeBy법정동코드(Double.parseDouble(this.getTagValue("지역코드", eElement)));
+        AreaCode areaCode = areaCodeRepository.findAreaCodeBy법정동코드(this.getTagValue("지역코드", eElement)+ "00000");
+        log.info("지역 코드 " + this.getTagValue("지역코드", eElement) + "00000");
+        log.info("지역 코드2 " + areaCode.get법정동코드());
 
         return ApartmentSaleTransaction.builder()
                 .amount(Integer.parseInt(this.getTagValue("거래금액", eElement)))

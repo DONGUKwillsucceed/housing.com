@@ -3,17 +3,19 @@ package housing.com.server.module.property.domain.entity;
 import housing.com.server.module.property.domain.entity.ApartmentSaleTransaction;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.util.Collection;
 
 @Entity
+@Getter
 @Table(name = "area_code", schema = "Housing")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class AreaCode {
     @Id
     @Column(name = "법정동코드")
-    private double 법정동코드;
+    private String 법정동코드;
     @Basic
     @Column(name = "시도명")
     private String 시도명;

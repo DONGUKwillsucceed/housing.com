@@ -23,16 +23,7 @@ public class TransactionUpdateService {
     @Scheduled(cron = "0/30 * * * * ?")
     void updateApartmentSale() {
         log.info("[cron start]!");
-        ArrayList<ApartmentSaleTransaction> transactions = apartmentSaleTransactionGenerator.generate();
-        log.info("[Is Tranactions generated??] " + transactions.size());
-        for(ApartmentSaleTransaction transaction : transactions){
-            ApartmentSaleTransaction result = apartmentSaleTransactionRepository.findApartmentSaleTransactionByApartmentName(transaction.getApartmentName());
-            if(result != null)
-                continue;
-
-
-            apartmentSaleTransactionRepository.save(transaction);
-        }
+        apartmentSaleTransactionGenerator.update();
         log.info("[cron end]");
     }
 }
