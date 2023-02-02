@@ -15,7 +15,7 @@ public class TransactionUpdateController {
         this.apartmentSaleTransactionUpdateService = apartmentSaleTransactionUpdateService;
     }
 
-    @Scheduled(cron = "0/30 * * * * ?")
+    @Scheduled(cron = "0 0 12 * * *")
     void updateApartmentSale(){
         log.info("[cron start]!");
         apartmentSaleTransactionUpdateService.update();

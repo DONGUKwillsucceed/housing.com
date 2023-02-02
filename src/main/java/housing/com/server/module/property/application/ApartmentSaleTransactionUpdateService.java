@@ -39,6 +39,7 @@ public class ApartmentSaleTransactionUpdateService extends TransactionUpdateServ
         List<AreaCode> areaCodeList = areaCodeRepository.findAll();
         for(AreaCode areaCode : areaCodeList){
             String today = getCurrentDate();
+            log.info("today " + today);
             String url = getUrl(areaCode.get법정동코드(), today);
             log.info("[URL] " + url);
             Document xml = xmlParser.parse(url);
@@ -56,6 +57,7 @@ public class ApartmentSaleTransactionUpdateService extends TransactionUpdateServ
 
     protected void persistTransaction(Document xml) {
         NodeList nList = xml.getElementsByTagName("item");
+        log.info("count " + nList.getLength());
         for(int temp = 0; temp < nList.getLength(); temp++){
             Node nNode = nList.item(temp);
             if(nNode.getNodeType() == Node.ELEMENT_NODE) {
