@@ -5,6 +5,7 @@ import housing.com.server.module.property.domain.entity.AreaCode;
 import housing.com.server.module.property.domain.type.PropertyType;
 import housing.com.server.module.property.infra.ApartmentSaleTransactionRepository;
 import housing.com.server.module.property.infra.AreaCodeRepository;
+import housing.com.server.module.updater.domain.TransactionUpdateService;
 import lombok.extern.slf4j.Slf4j;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
@@ -20,18 +21,15 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 
 @Component @Slf4j
-public class ApartmentSaleTransactionGenerator {
+public class ApartmentSaleTransactionUpdateService extends TransactionUpdateService <ApartmentSaleTransaction> {
     @Value("${data.go.kr.apartment.sale.serviceKey}")
     private String serviceKey;
     private ApartmentSaleTransactionRepository apartmentSaleTransactionRepository;
-    private AreaCodeRepository areaCodeRepository;
     StringBuilder urlBuilder;
-    private final XMLParser xmlParser;
-    public ApartmentSaleTransactionGenerator(XMLParser xmlParser, ApartmentSaleTransactionRepository apartmentSaleTransactionRepository, AreaCodeRepository areaCodeRepository){
+    public ApartmentSaleTransactionUpdateService(XMLParser xmlParser, ApartmentSaleTransactionRepository apartmentSaleTransactionRepository, AreaCodeRepository areaCodeRepository){
+        super(xmlParser, areaCodeRepository);
         urlBuilder = new StringBuilder("http://openapi.molit.go.kr:8081/OpenAPI_ToolInstallPackage/service/rest/RTMSOBJSvc/getRTMSDataSvcAptTrade");
-        this.xmlParser = xmlParser;
         this.apartmentSaleTransactionRepository = apartmentSaleTransactionRepository;
-        this.areaCodeRepository = areaCodeRepository;
     }
 
     public void update(){
@@ -43,31 +41,31 @@ public class ApartmentSaleTransactionGenerator {
         log.info("[URL] " + url);
         Document xml = xmlParser.parse(url);
         log.info("Root : " + xml.getDocumentElement().getNodeName());
-        NodeList nList = xml.getElementsByTagName("item");
-        persistTransaction(nList);
+
+        persistTransaction(xml);
     }
     @Contract("_, _ -> new")
-    private @NotNull String getUrl(String areaCode, String date){
+    protected @NotNull String getUrl(String areaCode, String date){
         urlBuilder.append("?").append(URLEncoder.encode("serviceKey", StandardCharsets.UTF_8)).append("=").append(serviceKey);
         urlBuilder.append("&").append(URLEncoder.encode("LAWD_CD", StandardCharsets.UTF_8)).append("=").append(URLEncoder.encode(areaCode, StandardCharsets.UTF_8));
         urlBuilder.append("&").append(URLEncoder.encode("DEAL_YMD", StandardCharsets.UTF_8)).append("=").append(URLEncoder.encode(date, StandardCharsets.UTF_8));
         return urlBuilder.toString();
     }
-    private void persistTransaction(NodeList nList){
-        log.info(String.valueOf(nList.getLength()));
+
+    protected void persistTransaction(Document xml) {
+        NodeList nList = xml.getElementsByTagName("item");
         ArrayList<ApartmentSaleTransaction> transactions = new ArrayList<>();
         for(int temp = 0; temp < nList.getLength(); temp++){
             Node nNode = nList.item(temp);
-            log.info("Current item " + nNode.getNodeName());
             if(nNode.getNodeType() == Node.ELEMENT_NODE) {
                 Element eElement = (Element) nNode;
                 ApartmentSaleTransaction transaction = mapTransaction(eElement);
                 transactions.add(transaction);
             }
-
         }
     }
-    private ApartmentSaleTransaction mapTransaction(Element eElement){
+
+    protected ApartmentSaleTransaction mapTransaction(Element eElement){
         AreaCode areaCode = areaCodeRepository.findAreaCodeBy법정동코드(this.getTagValue("지역코드", eElement)+ "00000");
         log.info("지역 코드 " + this.getTagValue("지역코드", eElement) + "00000");
         log.info("지역 코드2 " + areaCode.get법정동코드());
@@ -86,11 +84,5 @@ public class ApartmentSaleTransactionGenerator {
                 .jibun(this.getTagValue("지번", eElement))
                 .type(PropertyType.apartment)
                 .build();
-    }
-    private String getTagValue(String tagName, Element element) {
-        return element.getElementsByTagName(tagName).item(0).getTextContent().trim().replace(",","");
-    }
-    private int getCurrentDate(){
-        return 0;
     }
 }
