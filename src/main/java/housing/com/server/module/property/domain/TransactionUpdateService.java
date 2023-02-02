@@ -1,4 +1,4 @@
-package housing.com.server.module.updater.domain;
+package housing.com.server.module.property.domain;
 
 import housing.com.server.common.service.XMLParser;
 import housing.com.server.module.property.infra.AreaCodeRepository;
